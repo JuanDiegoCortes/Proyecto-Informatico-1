@@ -21,10 +21,10 @@ export const getUserById = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     try {
-        const { username, email, role } = req.body;
+        const { name, lastname, birthdate, phone_number, email, role } = req.body;
         const updatedUser = await User.findByIdAndUpdate(
             req.params.id,
-            { username, email, role },
+            { name, lastname, birthdate, phone_number, email, role },
             { new: true, runValidators: true }
         ).select('-password'); // No incluir la contraseña
         if (!updatedUser) return res.status(404).json({ message: 'User not found' });
