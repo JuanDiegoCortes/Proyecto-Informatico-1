@@ -3,7 +3,7 @@ import bycrypt from 'bcryptjs';
 import { createAccessToken } from '../libs/jwt.js';
 
 export const register = async(req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
 
     try {
         const userFound = await User.findOne({ email });
@@ -14,6 +14,7 @@ export const register = async(req, res) => {
             username,
             email,
             password: passwordHash,
+            role: role 
         });
 
         const userSaved = await newUser.save();
@@ -22,7 +23,8 @@ export const register = async(req, res) => {
         res.json({
             id: userSaved._id,
             username: userSaved.username,
-            email: userSaved.email
+            email: userSaved.email,
+            role: userSaved.role
         });
     }catch(error){
         res.status(500).json({ message: error.message });
