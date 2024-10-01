@@ -29,12 +29,26 @@ export const AuthProvider = ({children}) => {
         }
     };
 
-    const signin = async(user) =>{
+    const signin = async (user, callback) => {
         try {
-            const res = await loginRequest(user)
-            console.log(res)
+            const res = await loginRequest(user);
+            console.log(res);
+            setUser(res.data);
+            setIsAuthenticated(true);
+            if (callback) callback();
         } catch (error) {
-            console.log(error.response)
+            console.log(error.response);
+            setErrors(error.response.data.message);
+        }
+    };
+
+    const logout = async () => {
+        try {
+            await axios.post('/api/logout');
+            setUser(null);
+            setIsAuthenticated(false);
+        } catch (error) {
+            console.log(error.response);
         }
     };
     
@@ -43,6 +57,7 @@ export const AuthProvider = ({children}) => {
         value={{
             signup,
             signin,
+            logout,
             user,
             isAuthenticated,
             errors
