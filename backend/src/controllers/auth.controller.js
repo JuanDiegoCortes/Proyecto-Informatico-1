@@ -48,7 +48,12 @@ export const login = async(req, res) => {
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
         const token = await createAccessToken({ id: userFound._id });
-        res.cookie('token', token);
+        res.cookie('token', token, {
+            httpOnly: true,      // No accesible desde JS en el frontend
+            secure: false,       // Cambiar a true en producción con HTTPS
+            sameSite: 'Lax',     // Cambiar a 'None' en producción si es cross-origin con HTTPS
+            maxAge: 3600000      // 1 hora de vida para la cookie
+        });
         res.json({
             id: userFound._id,
             username: userFound.username,
