@@ -1,0 +1,94 @@
+/* ConsultPage.css */
+
+.consult-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+    background-color: #6b90a5;
+    color: white;
+    padding: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1em;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+}
+
+.form-section {
+    flex: 1;
+    padding: 1em;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-section form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-section input, .form-section textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-section button {
+    background-color: #6b90a5;
+    color: white;
+    border: none;
+    padding: 0.5em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-section button:hover {
+    background-color: #6b90a5;
+}
+
+.queries-section {
+    flex: 2;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.query-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.query-card h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.query-card p {
+    margin-bottom: 0.5em;
+    color: #666;
+}
+
+.query-card small {
+    color: #999;
+}
+
+
