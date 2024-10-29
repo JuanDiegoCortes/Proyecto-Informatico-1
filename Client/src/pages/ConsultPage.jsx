@@ -1,33 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { getQueries, addQuery, deleteQuery } from '../api/auth'; 
+import { useAppointment } from '../context/AppointmentContext';
 import './ConsultPage.css';
 
 const ConsultPage = () => {
-    const [queries, setQueries] = useState([]);
-    const [title, setTitle] = useState('');
+    const { 
+        appointments, 
+        createAppointment, 
+        getAllAppointmentsByUser, 
+        errors 
+    } = useAppointment();
+
+    const [scheduledDate, setScheduledDate] = useState('');
     const [description, setDescription] = useState('');
 
     useEffect(() => {
-        const fetchQueries = async () => {
-            try {
-                const response = await getQueries();
-                setQueries(response.data);
-            } catch (error) {
-                console.error('Error fetching queries:', error);
-            }
-        };
-        fetchQueries();
+        getAllAppointmentsByUser();
     }, []);
 
-    const handleAddQuery = async (e) => {
+    const handleAddAppointment = async (e) => {
         e.preventDefault();
-        const newQuery = await addQuery({ title, description });
-        setQueries([newQuery, ...queries]);
-        setTitle('');
-        setDescription('');
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const selectedDate = new Date(scheduledDate);
+
+        if (selectedDate < today) {
+            alert('Por favor selecciona una fecha futura');
+            return;
+        }
+
+        try {
+            await createAppointment({ 
+                date: scheduledDate,
+                description
+            });
+
+            setScheduledDate('');
+            setDescription('');
+
+            getAllAppointmentsByUser();
+        } catch (error) {
+            console.error("Error al crear la cita:", error);
+        }
     };
 
-    
+    const today = new Date().toISOString().split('T')[0];
 
     return (
         <div className="consult-container">
@@ -36,13 +53,14 @@ const ConsultPage = () => {
             </div>
             <div className="content">
                 <div className="form-section">
-                    <form onSubmit={handleAddQuery}>
+                    <form onSubmit={handleAddAppointment}>
                         <input
-                            type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Título"
+                            type="date"
+                            value={scheduledDate}
+                            onChange={(e) => setScheduledDate(e.target.value)}
+                            min={today}
                             required
+                            className="date-input"
                         />
                         <textarea
                             value={description}
@@ -50,19 +68,28 @@ const ConsultPage = () => {
                             placeholder="Descripción"
                             required
                         />
-                        <button type="submit">Agregar Consulta</button>
+                        <button type="submit">Programar Cita</button>
                     </form>
                 </div>
                 <div className="queries-section">
-                    {queries.map((query) => (
-                        <div className="query-card" key={query._id}>
-                            <h2>{query.title}</h2>
-                            <p>{query.description}</p>
-                            <small>Fecha: {query.date ? new Date(query.date).toLocaleDateString() : 'Sin fecha'}</small>
-                           
+                    {appointments.map((appointment) => (
+                        <div className="query-card" key={appointment._id}>
+                            <h2>Fecha de la cita: {
+                                new Date(appointment.date).toLocaleDateString()
+                            }</h2>
+                            <p>Descripción: {appointment.description}</p>
+                            <p>Estado: {appointment.status}</p>
+                            <p>Fecha de creación: {
+                                new Date(appointment.createdAt).toLocaleDateString()
+                            }</p>
                         </div>
                     ))}
                 </div>
+                {errors && (
+                    <div className="error-message">
+                        {errors}
+                    </div>
+                )}
             </div>
         </div>
     );
