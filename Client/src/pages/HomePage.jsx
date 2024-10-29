@@ -1,19 +1,26 @@
-import React , {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import './HomePage.css';
 import MomImage from './Images/ecografias.jpg';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { checkAuth } from '../api/auth'; // Asegúrate de importar checkAuth
 
 function HomePage() {
-
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, setIsAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const verifyAuth = async () => {
+      const authStatus = await checkAuth();
+      setIsAuthenticated(authStatus);
+    };
+    verifyAuth();
+  }, [setIsAuthenticated]);
 
   const handleLogout = async () => {
     await logout();
     window.location.reload();
   };
-
 
   return (
     <div>
@@ -39,10 +46,9 @@ function HomePage() {
         <p>Un cuidado especial para ti y tu bebé, brindando soluciones tecnológicas para monitorear cada etapa.</p>
       </section>
 
-      
       <section className="about-us">
         <div className="about-image">
-        <img src={MomImage} alt="Madre con bebé" />
+          <img src={MomImage} alt="Madre con bebé" />
         </div>
         <div className="about-text">
           <h2>¿Quiénes Somos?</h2>

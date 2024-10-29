@@ -81,3 +81,11 @@ export const profile = async(req, res) => {
     })
     res.send('profile');
 }
+
+export const checkAuth = (req, res) => {
+    if (req.user) {
+        return res.json({ isAuthenticated: true });
+    } else {
+        return res.json({ isAuthenticated: false });
+    }
+};
