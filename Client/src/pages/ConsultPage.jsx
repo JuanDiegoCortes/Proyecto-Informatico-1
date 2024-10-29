@@ -75,7 +75,7 @@ const ConsultPage = () => {
                     {appointments.map((appointment) => (
                         <div className="query-card" key={appointment._id}>
                             <h2>Fecha de la cita: {
-                                new Date(appointment.date).toLocaleDateString()
+                                new Date(appointment.date.replace(/T.*/, '') + 'T00:00').toLocaleDateString()
                             }</h2>
                             <p>Descripción: {appointment.description}</p>
                             <p>Estado: {appointment.status}</p>
