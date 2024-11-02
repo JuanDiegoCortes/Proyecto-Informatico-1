@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -7,12 +7,15 @@ function LoginPage() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const { signin } = useAuth();
+  const [showDoctorLogin, setShowDoctorLogin] = useState(false);
 
   const onSubmit = handleSubmit((data) => {
-    signin(data, () => {
-      setTimeout(() => {
+    signin(data, (userRole) => {
+      if (userRole === 'doctor') {
+        navigate('/doctor-dashboard');
+      } else {
         navigate('/');
-      }, 2000); // 2000 milisegundos = 2 segundos
+      }
     });
   });
 
@@ -42,6 +45,21 @@ function LoginPage() {
           Login
         </button>
       </form>
+
+      <button onClick={() => setShowDoctorLogin(!showDoctorLogin)} style={styles.doctorButton}>
+        Login Doctor
+      </button>
+      
+      {showDoctorLogin && (
+        <div style={styles.doctorMenu}>
+          <p style={styles.doctorText}>Login exclusivo para doctores</p>
+          <form onSubmit={onSubmit} style={styles.form}>
+            <button type='submit' style={styles.button}>
+              Iniciar sesión como Doctor
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
@@ -61,6 +79,8 @@ const styles = {
     borderRadius: '8px',
     backgroundColor: '#fff',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    width: '100%',
+    maxWidth: '320px',
   },
   title: {
     marginBottom: '1rem',
@@ -88,6 +108,29 @@ const styles = {
     color: '#fff',
     cursor: 'pointer',
     fontSize: '1rem',
+    marginBottom: '0.5rem',
+  },
+  doctorButton: {
+    padding: '0.75rem',
+    borderRadius: '4px',
+    border: 'none',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    cursor: 'pointer',
+    fontSize: '1rem',
+    marginBottom: '1rem',
+  },
+  doctorMenu: {
+    marginTop: '1rem',
+    padding: '1rem',
+    borderRadius: '8px',
+    backgroundColor: '#e9ecef',
+    textAlign: 'center',
+  },
+  doctorText: {
+    marginBottom: '0.5rem',
+    color: '#333',
+    fontSize: '0.875rem',
   },
 };
 

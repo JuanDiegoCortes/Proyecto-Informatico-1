@@ -17,7 +17,7 @@ export const register = async(req, res) => {
             phone_number,
             email,
             password: passwordHash,
-            role: role 
+            role: role || 'user' // Rol por defecto si no se define
         });
 
         const userSaved = await newUser.save();
@@ -81,3 +81,34 @@ export const profile = async(req, res) => {
     })
     res.send('profile');
 }
+
+export const registerDoctor = async (req, res) => {
+    const { name, lastname, specialty, licenseNumber, email, password } = req.body;
+
+    try {
+        const doctorFound = await Doctor.findOne({ email });
+        if (doctorFound) return res.status(400).json(['The email is already in use']);
+
+        const passwordHash = await bcrypt.hash(password, 10);
+        const newDoctor = new Doctor({
+            name,
+            lastname,
+            specialty,
+            licenseNumber,
+            email,
+            password: passwordHash,
+            role: 'doctor' // Esto puede variar dependiendo de cómo defines los roles
+        });
+
+        const doctorSaved = await newDoctor.save();
+        res.json({
+            id: doctorSaved._id,
+            name: doctorSaved.name,
+            specialty: doctorSaved.specialty,
+            email: doctorSaved.email,
+            role: doctorSaved.role
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

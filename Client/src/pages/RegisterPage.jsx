@@ -13,6 +13,7 @@ function RegisterPage() {
     }, [isAuthenticated, navigate]);
 
     const onSubmit = handleSubmit((data) => {
+        console.log('Datos enviados:', data); // Verificar datos antes de enviar
         signup(data);
     });
 
@@ -76,6 +77,10 @@ function RegisterPage() {
             </div>
             <button type='submit' style={styles.button}>
             Register
+            </button>
+
+            <button onClick={() => navigate('/register-doctor')} style={styles.doctorButton}>
+                ¿Es usted doctor?
             </button>
         </form>
         </div>

@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import { AuthProvider } from './context/AuthContext'
+import RegisterDoctorPage from './pages/RegisterDoctorPage'
 
 function App() {
   
@@ -13,6 +14,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/register-doctor" element={<RegisterDoctorPage />} />
           </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -1,5 +1,6 @@
 import {createContext, useState, useContext} from 'react'
-import {registerRequest, loginRequest} from "../api/auth";
+import {registerRequest, loginRequest} from "../api/auth"
+import { registerDoctorRequest } from "../api/auth";
 
 
 export const AuthContext = createContext()
@@ -51,6 +52,19 @@ export const AuthProvider = ({children}) => {
             console.log(error.response);
         }
     };
+
+    const signupDoctor = async(doctorData) => {
+        try {
+            const res = await registerDoctorRequest(doctorData);
+            console.log(res.data); // Para ver la respuesta en consola
+            setUser(res.data);
+            setIsAuthenticated(true);
+        } catch (error) {
+            console.log(error.response);
+            const message = error.response?.data?.message || 'An unexpected error occurred';
+            setErrors([message]);
+        }
+    };
     
     return (
         <AuthContext.Provider 
@@ -58,6 +72,7 @@ export const AuthProvider = ({children}) => {
             signup,
             signin,
             logout,
+            signupDoctor,
             user,
             isAuthenticated,
             errors
