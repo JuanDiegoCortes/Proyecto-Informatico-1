@@ -5,19 +5,17 @@ import { authRequired } from '../middlewares/validateToken.js';
 
 const router = Router();
 
-// Configuración de multer para manejar la carga de archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/videos'); // Asegúrate de que esta carpeta exista
+        cb(null, 'uploads/videos');
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname); // Mantiene el nombre original del archivo
+        cb(null, file.originalname);
     },
 });
 
 const upload = multer({ storage });
 
-// Ruta para subir el video de ecografía
 router.post('/upload/:appointmentId', authRequired, upload.single('video'), uploadDiagnosticVideo);
 
 export default router;

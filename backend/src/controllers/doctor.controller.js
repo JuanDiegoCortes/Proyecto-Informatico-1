@@ -21,9 +21,15 @@ const s3 = new AWS.S3({
 });
 
 export const uploadDiagnosticVideo = async (req, res) => {
+    console.log(req.file); // Verifica que el archivo se esté recibiendo
+
+    if (!req.file) {
+        return res.status(400).json({ error: 'No se ha proporcionado ningún archivo' });
+    }
+
     try {
         const { appointmentId } = req.params;
-        const doctorId = req.user.id; // 
+        const doctorId = req.user.id; // ID del doctor
         const originalFilePath = req.file.path; // Ruta temporal del archivo AVI en el servidor
 
         // Define la ruta de destino para el archivo MP4 temporal
@@ -71,6 +77,7 @@ export const uploadDiagnosticVideo = async (req, res) => {
             })
             .save(mp4FilePath); // Guarda el archivo MP4 temporalmente
     } catch (error) {
+        console.error(error); // Log del error para depuración
         res.status(500).json({ error: 'Error al guardar el diagnóstico y el video' });
     }
 };
