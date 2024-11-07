@@ -18,75 +18,66 @@ function RegisterPage() {
 
     return (
         <div style={styles.container}>
-            <form onSubmit={onSubmit} style={styles.form}>
-                <h2 style={styles.title}>Register</h2>
-                <div style={styles.inputGroup}>
-                    <input 
-                        type="text" 
-                        {...register('name', { required: true })} 
-                        placeholder="Name" 
-                        style={styles.input}
-                    />
-                    {errors.name && <span style={styles.error}>Name is required</span>}
-                </div>
-                <div style={styles.inputGroup}>
-                    <input 
-                        type="text" 
-                        {...register('lastname', { required: true })} 
-                        placeholder="Lastname" 
-                        style={styles.input}
-                    />
-                    {errors.lastname && <span style={styles.error}>Lastname is required</span>}
-                </div>
-                <div style={styles.inputGroup}>
-                    <input 
-                        type="date" 
-                        {...register('birthdate', { required: true })} 
-                        placeholder="Birthdate" 
-                        style={styles.input}
-                    />
-                    {errors.birthdate && <span style={styles.error}>Birthdate is required</span>}
-                </div>
-                <div style={styles.inputGroup}>
-                    <input 
-                        type="text" 
-                        {...register('phone_number', { required: true })} 
-                        placeholder="Phone Number" 
-                        style={styles.input}
-                    />
-                    {errors.phone_number && <span style={styles.error}>Phone Number is required</span>}
-                </div>
-                <div style={styles.inputGroup}>
-                    <input 
-                        type="email" 
-                        {...register('email', { required: true })} 
-                        placeholder="Email" 
-                        style={styles.input}
-                    />
-                    {errors.email && <span style={styles.error}>Email is required</span>}
-                </div>
-                <div style={styles.inputGroup}>
-                    <input 
-                        type="password" 
-                        {...register('password', { required: true })} 
-                        placeholder="Password" 
-                        style={styles.input}
-                    />
-                    {errors.password && <span style={styles.error}>Password is required</span>}
-                </div>
-                <div style={styles.inputGroup}>
-                    <select {...register('role', { required: true })} style={styles.input}>
-                        <option value="">Select Role</option>
-                        <option value="User">User</option>
-                        <option value="Doctor">Doctor</option>
-                        <option value="Administrator">Administrator</option>
-                    </select>
-                    {errors.role && <span style={styles.error}>Role is required</span>}
-                </div>
-                <button type='submit' style={styles.button}>
-                    Register
-                </button>
-            </form>
+        <form onSubmit={onSubmit} style={styles.form}>
+            <h2 style={styles.title}>Register</h2>
+            <div style={styles.inputGroup}>
+            <input 
+                type="text" 
+                {...register('name', { required: true })} 
+                placeholder="Name" 
+                style={styles.input}
+            />
+            {errors.name && <span style={styles.error}>Name is required</span>}
+            </div>
+            <div style={styles.inputGroup}>
+            <input 
+                type="text" 
+                {...register('lastname', { required: true })} 
+                placeholder="Lastname" 
+                style={styles.input}
+            />
+            {errors.lastname && <span style={styles.error}>Lastname is required</span>}
+            </div>
+            <div style={styles.inputGroup}>
+            <input 
+                type="date" 
+                {...register('birthdate', { required: true })} 
+                placeholder="Birthdate" 
+                style={styles.input}
+            />
+            {errors.birthdate && <span style={styles.error}>Birthdate is required</span>}
+            </div>
+            <div style={styles.inputGroup}>
+            <input 
+                type="text" 
+                {...register('phone_number', { required: true })} 
+                placeholder="Phone Number" 
+                style={styles.input}
+            />
+            {errors.phone_number && <span style={styles.error}>Phone Number is required</span>}
+            </div>
+            <div style={styles.inputGroup}>
+            <input 
+                type="email" 
+                {...register('email', { required: true })} 
+                placeholder="Email" 
+                style={styles.input}
+            />
+            {errors.email && <span style={styles.error}>Email is required</span>}
+            </div>
+            <div style={styles.inputGroup}>
+            <input 
+                type="password" 
+                {...register('password', { required: true })} 
+                placeholder="Password" 
+                style={styles.input}
+            />
+            {errors.password && <span style={styles.error}>Password is required</span>}
+            </div>
+            <button type='submit' style={styles.button}>
+            Register
+            </button>
+        </form>
         </div>
     );
 }

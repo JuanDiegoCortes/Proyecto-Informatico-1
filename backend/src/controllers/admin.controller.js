@@ -4,7 +4,7 @@ import Appointment from "../models/appointment.model.js";
 
 export const listAllUsers = async (req, res) => {
     try {
-        const users = await User.find({ role: 'User' }).select('-password'); // Filtrar por rol 'user' y no incluir la contraseña
+        const users = await User.find({ role: 'user' }).select('-password'); // Filtrar por rol 'user' y no incluir la contraseña
         res.json(users);
     } catch (error) {
         res.status(500).json({ message: error.message });
