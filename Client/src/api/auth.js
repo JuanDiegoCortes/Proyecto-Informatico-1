@@ -2,17 +2,7 @@ import axios from 'axios'
 
 const API = 'http://localhost:3000/api'
 
-export const registerRequest = async (user) => {
-    try {
-        const response = await axios.post(`${API}/register`, user, { withCredentials: true });
-          console.log(response.data);
-          return response;
-      
-    } catch (error) {
-        console.error("Register request error:", error.response?.data || error.message);
-        throw error; // Puedes elegir si devolver el error o manejarlo
-    }
-};
+export const registerRequest = user => axios.post(`${API}/register`, user, { withCredentials: true })
 
 export const loginRequest = user => axios.post(`${API}/login`, user, { withCredentials: true })
 
