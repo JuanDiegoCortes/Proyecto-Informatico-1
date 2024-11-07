@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ConsultPage from './pages/ConsultPage';
+import AdminLayout from './pages/AdminLayout';
 import { AuthProvider } from './context/AuthContext';
 import { AppointmentProvider } from './context/AppointmentContext';
 
@@ -14,7 +15,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          {/* Envuelve ConsultPage con AppointmentProvider */}
           <Route
             path="/consult"
             element={
@@ -23,6 +23,8 @@ function App() {
               </AppointmentProvider>
             }
           />
+          <Route path="/admin/*" element={<AdminLayout />} />
+          
         </Routes>
       </BrowserRouter>
     </AuthProvider>

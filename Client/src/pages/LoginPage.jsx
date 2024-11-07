@@ -8,13 +8,22 @@ function LoginPage() {
   const navigate = useNavigate();
   const { signin } = useAuth();
 
-  const onSubmit = handleSubmit((data) => {
-    signin(data, () => {
-      setTimeout(() => {
-        navigate('/');
-      }, 2000); // 2000 milisegundos = 2 segundos
-    });
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await signin(data, (role) => {
+        if (role === 'Administrator') {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
+      });
+    } catch (error) {
+      console.error("Error en el inicio de sesión:", error);
+      // Aquí puedes mostrar un mensaje de error en la UI si es necesario
+    }
   });
+  
+  
 
   return (
     <div style={styles.container}>
