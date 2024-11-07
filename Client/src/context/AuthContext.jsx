@@ -13,6 +13,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
 
@@ -26,28 +27,36 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (user) => {
     try {
-      const res = await registerRequest(user);
-      console.log(res.data);
-      setUser(res.data);
-      setIsAuthenticated(true);
+        const res = await registerRequest(user); // Ahora res debería contener el objeto de respuesta completo
+        if (res && res.data) { // Verifica que res y res.data existan
+            console.log(res.data);
+            setUser(res.data);
+            setRole(res.data.role);
+            setIsAuthenticated(true);
+        } else {
+            throw new Error("No se recibieron datos de respuesta en la solicitud de registro.");
+        }
     } catch (error) {
-      console.log(error.response);
-      setErrors(error.response.data.message);
+        console.log(error.response || error.message);
+        setErrors(error.response ? error.response.data.message : "Ocurrió un error en el registro.");
     }
-  };
+};
 
   const signin = async (user, callback) => {
     try {
-      const res = await loginRequest(user);
-      console.log(res);
-      setUser(res.data);
-      setIsAuthenticated(true);
-      if (callback) callback();
+        const res = await loginRequest(user);
+        console.log(res);
+        setUser(res.data);
+        console.log(setUser);
+        setRole(res.data.role);
+        console.log(setRole);
+        setIsAuthenticated(true);
+        if (callback) callback(res.data.role);
     } catch (error) {
-      console.log(error.response);
-      setErrors(error.response.data.message);
+        console.log(error.response);
+        setErrors(error.response.data.message);
     }
-  };
+};
 
   const logout = async () => {
     try {
@@ -64,6 +73,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         signup,
         signin,
+        role,
         logout,
         user,
         isAuthenticated,

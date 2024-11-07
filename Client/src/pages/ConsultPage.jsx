@@ -37,7 +37,7 @@ const ConsultPage = () => {
 
             setScheduledDate('');
             setDescription('');
-
+            console.log("Citas actuales después de crear:", appointments);
             getAllAppointmentsByUser();
         } catch (error) {
             console.error("Error al crear la cita:", error);
