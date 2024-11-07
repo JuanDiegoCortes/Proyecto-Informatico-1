@@ -1,4 +1,4 @@
-import Appointment from '../models/appointment.model.js'
+import Appointment from '../models/appointment.model.js';
 
 export const createAppointment = async (req, res) => {
     try {
@@ -8,7 +8,8 @@ export const createAppointment = async (req, res) => {
         const newAppointment = new Appointment({
             userId,
             date,
-            description
+            description,
+            // No asignamos doctorId aquí
         });
 
         await newAppointment.save();
@@ -25,4 +26,4 @@ export const getAppointments = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};

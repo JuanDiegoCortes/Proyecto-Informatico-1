@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { uploadDiagnosticVideo } from '../controllers/doctor.controller.js';
+import { uploadDiagnosticVideo, listAllAppointments } from '../controllers/doctor.controller.js';
 import multer from 'multer';
 import { authRequired } from '../middlewares/validateToken.js';
 
@@ -17,5 +17,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post('/upload/:appointmentId', authRequired, upload.single('video'), uploadDiagnosticVideo);
+router.get('/appointments/:doctorId', authRequired, listAllAppointments);
 
 export default router;
