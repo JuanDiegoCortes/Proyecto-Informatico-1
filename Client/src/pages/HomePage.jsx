@@ -6,13 +6,17 @@ import { useAuth } from '../context/AuthContext';
 import { checkAuth } from '../api/auth'; // Asegúrate de importar checkAuth
 
 function HomePage() {
-  const { isAuthenticated, setIsAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, setIsAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const verifyAuth = async () => {
       const authStatus = await checkAuth();
       setIsAuthenticated(authStatus);
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
     };
     verifyAuth();
   }, [setIsAuthenticated]);
@@ -27,9 +31,13 @@ function HomePage() {
       <nav className="navbar">
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/consult">Consultar</Link></li>
           {isAuthenticated ? (
             <>
+              {user && user.role === 'doctor' ? (
+                <li><Link to="/doctor">Doctor Section</Link></li>
+              ) : (
+                <li><Link to="/consult">Consultar</Link></li>
+              )}
               <li><Link to="#" onClick={handleLogout}>Logout</Link></li>
             </>
           ) : (

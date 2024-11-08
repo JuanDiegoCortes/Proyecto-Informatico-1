@@ -8,8 +8,14 @@ export const createAppointmentRequest = (appointmentData) =>
         withCredentials: true 
     });
 
-    // Obtener todas las citas del usuario
-    export const getAppointmentsByUserRequest = () => 
+// Obtener todas las citas del usuario
+export const getAppointmentsByUserRequest = () => 
     axios.get(`${API}/appointments`, { 
+        withCredentials: true 
+    });
+
+// Obtener el diagnóstico de una cita
+export const getDiagnosticByAppointmentRequest = (appointmentId) => 
+    axios.get(`${API}/appointments/${appointmentId}/diagnosis`, { 
         withCredentials: true 
     });

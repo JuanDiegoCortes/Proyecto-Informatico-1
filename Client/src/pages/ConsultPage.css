@@ -1,5 +1,4 @@
-/* ConsultPage.css */
-
+/* General Styles */
 .consult-container {
     display: flex;
     flex-direction: column;
@@ -7,6 +6,7 @@
     width: 100%;
     max-width: 1200px;
     margin: auto;
+    padding: 20px;
 }
 
 .header {
@@ -14,81 +14,135 @@
     text-align: center;
     background-color: #6b90a5;
     color: white;
-    padding: 1em;
+    padding: 1.5em;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 
 .content {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2em;
     width: 100%;
 }
 
 .form-section {
-    flex: 1;
-    padding: 1em;
-    border-right: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex: 1 1 45%;
+    padding: 1.5em;
+    border-radius: 8px;
+    background-color: #fafafa;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .form-section form {
     width: 100%;
-    max-width: 400px;
     display: flex;
     flex-direction: column;
+    gap: 1em;
 }
 
 .form-section input, .form-section textarea {
     width: 100%;
-    padding: 0.5em;
-    margin-bottom: 1em;
+    padding: 0.75em;
+    margin-bottom: 1.5em;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 1rem;
 }
 
 .form-section button {
     background-color: #6b90a5;
     color: white;
     border: none;
-    padding: 0.5em;
-    border-radius: 5px;
+    padding: 0.75em;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
 .form-section button:hover {
-    background-color: #6b90a5;
+    background-color: #557b8a;
 }
 
 .queries-section {
-    flex: 2;
-    padding: 1em;
+    flex: 2 1 50%;
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 1.5em;
+    padding: 1.5em;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 .query-card {
-    background-color: #f9f9f9;
+    background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 1em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1.5em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.query-card:hover {
+    transform: scale(1.02);
 }
 
 .query-card h2 {
     margin-top: 0;
     color: #333;
+    font-size: 1.25rem;
 }
 
 .query-card p {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.75em;
     color: #666;
 }
 
 .query-card small {
     color: #999;
+    font-size: 0.85rem;
 }
 
+.diagnostic-section {
+    margin-top: 2em;
+    padding: 1.5em;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.diagnostic-section h3 {
+    color: #333;
+    margin-bottom: 1em;
+    font-size: 1.25rem;
+}
+
+.diagnostic-section p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1em;
+}
+
+.diagnostic-section a {
+    display: inline-block;
+    color: #6b90a5;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: 1em;
+}
+
+.diagnostic-section a:hover {
+    text-decoration: underline;
+}
+
+/* Error Message */
+.error-message {
+    color: #ff4d4d;
+    background-color: #ffe6e6;
+    padding: 1em;
+    border-radius: 8px;
+    margin-top: 2em;
+}

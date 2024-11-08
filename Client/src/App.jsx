@@ -3,8 +3,10 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ConsultPage from './pages/ConsultPage';
+import DoctorPage from './pages/DoctorPage'; // Importar la página del doctor
 import { AuthProvider } from './context/AuthContext';
 import { AppointmentProvider } from './context/AppointmentContext';
+import { DoctorProvider } from './context/DoctorContext'; // Importar el contexto del doctor
 
 function App() {
   return (
@@ -21,6 +23,15 @@ function App() {
               <AppointmentProvider>
                 <ConsultPage />
               </AppointmentProvider>
+            }
+          />
+          {/* Nueva ruta para DoctorPage envuelta con DoctorProvider */}
+          <Route
+            path="/doctor"
+            element={
+              <DoctorProvider>
+                <DoctorPage />
+              </DoctorProvider>
             }
           />
         </Routes>

@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 import { registerRequest, loginRequest, checkAuth, logoutRequest } from "../api/auth";
+import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
 
@@ -20,6 +21,10 @@ export const AuthProvider = ({ children }) => {
     const verifyAuth = async () => {
       const authStatus = await checkAuth();
       setIsAuthenticated(authStatus);
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
     };
     verifyAuth();
   }, []);
@@ -30,6 +35,7 @@ export const AuthProvider = ({ children }) => {
       console.log(res.data);
       setUser(res.data);
       setIsAuthenticated(true);
+      localStorage.setItem('user', JSON.stringify(res.data));
     } catch (error) {
       console.log(error.response);
       setErrors(error.response.data.message);
@@ -42,6 +48,8 @@ export const AuthProvider = ({ children }) => {
       console.log(res);
       setUser(res.data);
       setIsAuthenticated(true);
+      localStorage.setItem('user', JSON.stringify(res.data));
+      Cookies.set('token', res.data.token);
       if (callback) callback();
     } catch (error) {
       console.log(error.response);
@@ -54,6 +62,8 @@ export const AuthProvider = ({ children }) => {
       await logoutRequest();
       setUser(null);
       setIsAuthenticated(false);
+      localStorage.removeItem('user');
+      Cookies.remove('token');
     } catch (error) {
       console.log(error.response);
     }

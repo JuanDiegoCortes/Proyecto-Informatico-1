@@ -7,11 +7,15 @@ const ConsultPage = () => {
         appointments, 
         createAppointment, 
         getAllAppointmentsByUser, 
-        errors 
+        errors,
+        getDiagnosticByAppointment 
     } = useAppointment();
 
     const [scheduledDate, setScheduledDate] = useState('');
     const [description, setDescription] = useState('');
+    const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
+    const [expandedAppointmentId, setExpandedAppointmentId] = useState(null); // Nuevo estado
+    const [diagnostics, setDiagnostics] = useState({}); // Estado para manejar diagnósticos específicos de cada cita
 
     useEffect(() => {
         getAllAppointmentsByUser();
@@ -37,10 +41,34 @@ const ConsultPage = () => {
 
             setScheduledDate('');
             setDescription('');
-
             getAllAppointmentsByUser();
         } catch (error) {
             console.error("Error al crear la cita:", error);
+        }
+    };
+
+    const handleShowDiagnostic = async (appointmentId) => {
+        if (expandedAppointmentId === appointmentId) {
+            // Si la cita ya está expandida, ocultamos el diagnóstico
+            setExpandedAppointmentId(null);
+        } else {
+            // Si la cita no está expandida, mostramos el diagnóstico
+            setExpandedAppointmentId(appointmentId);
+            try {
+                const diagnosticData = await getDiagnosticByAppointment(appointmentId);
+                
+                // Guardar diagnóstico y doctor solo para la cita específica
+                setDiagnostics(prevState => ({
+                    ...prevState,
+                    [appointmentId]: {
+                        diagnosis: diagnosticData.diagnosis,
+                        doctorName: diagnosticData.doctorId.name,
+                        videoUrl: diagnosticData.videoUrl
+                    }
+                }));
+            } catch (error) {
+                console.error("Error al obtener el diagnóstico:", error);
+            }
         }
     };
 
@@ -82,9 +110,30 @@ const ConsultPage = () => {
                             <p>Fecha de creación: {
                                 new Date(appointment.createdAt).toLocaleDateString()
                             }</p>
+
+                            {/* Botón para alternar la visibilidad del diagnóstico */}
+                            <button 
+                                onClick={() => handleShowDiagnostic(appointment._id)} 
+                            >
+                                {expandedAppointmentId === appointment._id ? 'Ocultar Diagnóstico' : 'Ver Diagnóstico'}
+                            </button>
+
+                            {/* Mostrar diagnóstico solo cuando la cita está expandida y tiene diagnóstico */}
+                            {expandedAppointmentId === appointment._id && diagnostics[appointment._id] && (
+                                <div className="diagnostic-form">
+                                    <div className="diagnostic-section">
+                                        <h3>Doctor: {diagnostics[appointment._id].doctorName}</h3> {/* Nombre del doctor */}
+                                        <p><strong>Diagnóstico: </strong>{diagnostics[appointment._id].diagnosis}</p> {/* Diagnóstico con el formato solicitado */}
+                                        {diagnostics[appointment._id].videoUrl && 
+                                            <a href={diagnostics[appointment._id].videoUrl} target="_blank" rel="noopener noreferrer">Ver video de ecografía</a>
+                                        }
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
+
                 {errors && (
                     <div className="error-message">
                         {errors}
