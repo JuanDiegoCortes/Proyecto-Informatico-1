@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { checkAuth } from '../api/auth'; // Asegúrate de importar checkAuth
 
 function HomePage() {
-  const { user, isAuthenticated, setIsAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, setIsAuthenticated, setUser, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function HomePage() {
       }
     };
     verifyAuth();
-  }, [setIsAuthenticated]);
+  }, [setIsAuthenticated, setUser]);
 
   const handleLogout = async () => {
     await logout();
@@ -33,9 +33,14 @@ function HomePage() {
           <li><Link to="/">Home</Link></li>
           {isAuthenticated ? (
             <>
-              {user && user.role === 'doctor' ? (
+              {/* Mostrar la sección correspondiente según el rol del usuario */}
+              {user && user.role === 'doctor' && (
                 <li><Link to="/doctor">Doctor Section</Link></li>
-              ) : (
+              )}
+              {user && user.role === 'admin' && (
+                <li><Link to="/admin">Admin Dashboard</Link></li>
+              )}
+              {user && user.role === 'user' && (
                 <li><Link to="/consult">Consultar</Link></li>
               )}
               <li><Link to="#" onClick={handleLogout}>Logout</Link></li>

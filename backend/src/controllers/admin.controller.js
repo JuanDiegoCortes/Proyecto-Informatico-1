@@ -79,3 +79,31 @@ export const assignDoctorToAppointment = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// Método para listar todas las citas de un usuario
+export const listUserAppointments = async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const appointments = await Appointment.find({ userId }).populate('doctorId', 'name lastname email');
+        if (!appointments) {
+            return res.status(404).json({ message: 'No appointments found for this user' });
+        }
+        res.status(200).json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Método para listar todos los usuarios con rol de doctor
+export const listDoctors = async (req, res) => {
+    try {
+        const doctors = await User.find({ role: 'doctor' }).select('name lastname email');
+        if (!doctors) {
+            return res.status(404).json({ message: 'No doctors found' });
+        }
+        res.status(200).json(doctors);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
