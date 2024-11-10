@@ -62,3 +62,25 @@ export const assignDoctorToAppointment = async (appointmentId, doctorId) => {
     throw new Error(`Failed to assign doctor to appointment ${appointmentId}`);
   }
 };
+
+// Obtener citas de un usuario específico
+export const fetchUserAppointments = async (userId) => {
+  try {
+    const response = await axios.get(`${API_URL}/appointments/user/${userId}`, { withCredentials: true });
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching appointments for user with ID ${userId}:`, error);
+    throw new Error(`Failed to fetch appointments for user with ID ${userId}`);
+  }
+};
+
+// Obtener lista de doctores
+export const fetchDoctors = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/doctors`, { withCredentials: true });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching doctors:', error);
+    throw new Error('Failed to fetch doctors');
+  }
+};
