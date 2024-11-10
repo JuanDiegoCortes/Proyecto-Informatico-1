@@ -10,7 +10,7 @@ router.put('/api/users/:id', authRequired, updateUser);
 router.delete('/api/users/:id', authRequired, deleteUser);
 
 router.put('/api/doctor/assign/:id', authRequired, assignDoctorToAppointment);
-router.get('/appointments/user/:userId', authRequired, listUserAppointments);
-router.get('/doctors', authRequired, listDoctors);
+router.get('/api/appointments/user/:userId', authRequired, listUserAppointments);
+router.get('/api/doctors', authRequired, listDoctors);
 
 export default router;

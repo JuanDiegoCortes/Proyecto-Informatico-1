@@ -80,7 +80,6 @@ export const assignDoctorToAppointment = async (req, res) => {
     }
 };
 
-// Método para listar todas las citas de un usuario
 export const listUserAppointments = async (req, res) => {
     const { userId } = req.params;
 
@@ -95,7 +94,6 @@ export const listUserAppointments = async (req, res) => {
     }
 };
 
-// Método para listar todos los usuarios con rol de doctor
 export const listDoctors = async (req, res) => {
     try {
         const doctors = await User.find({ role: 'doctor' }).select('name lastname email');
