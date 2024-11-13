@@ -25,6 +25,7 @@ function RegisterPage() {
                 type="text" 
                 {...register('name', { required: true })} 
                 placeholder="Name" 
+                id="name" 
                 style={styles.input}
             />
             {errors.name && <span style={styles.error}>Name is required</span>}
@@ -34,6 +35,7 @@ function RegisterPage() {
                 type="text" 
                 {...register('lastname', { required: true })} 
                 placeholder="Lastname" 
+                id="lastname" 
                 style={styles.input}
             />
             {errors.lastname && <span style={styles.error}>Lastname is required</span>}
@@ -42,16 +44,18 @@ function RegisterPage() {
             <input 
                 type="text" 
                 {...register('username', { required: true })} 
-                placeholder="username" 
+                placeholder="Username" 
+                id="username" 
                 style={styles.input}
             />
-            {errors.lastname && <span style={styles.error}>Username is required</span>}
+            {errors.username && <span style={styles.error}>Username is required</span>}
             </div>
             <div style={styles.inputGroup}>
             <input 
                 type="date" 
                 {...register('birthdate', { required: true })} 
                 placeholder="Birthdate" 
+                id="birthdate" 
                 style={styles.input}
             />
             {errors.birthdate && <span style={styles.error}>Birthdate is required</span>}
@@ -61,6 +65,7 @@ function RegisterPage() {
                 type="text" 
                 {...register('phone_number', { required: true })} 
                 placeholder="Phone Number" 
+                id="phone_number" 
                 style={styles.input}
             />
             {errors.phone_number && <span style={styles.error}>Phone Number is required</span>}
@@ -70,6 +75,7 @@ function RegisterPage() {
                 type="email" 
                 {...register('email', { required: true })} 
                 placeholder="Email" 
+                id="email" 
                 style={styles.input}
             />
             {errors.email && <span style={styles.error}>Email is required</span>}
@@ -79,6 +85,7 @@ function RegisterPage() {
                 type="password" 
                 {...register('password', { required: true })} 
                 placeholder="Password" 
+                id="password" 
                 style={styles.input}
             />
             {errors.password && <span style={styles.error}>Password is required</span>}
