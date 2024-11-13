@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDoctorContext } from '../context/DoctorContext';
+import HomeButton from '../components/HomeButton';
 
 const DoctorPage = () => {
     const { appointments, fetchAppointments, handleUploadDiagnostic, uploadStatus } = useDoctorContext();
@@ -38,6 +39,7 @@ const DoctorPage = () => {
 
     return (
         <div style={styles.container}>
+            <HomeButton />
             <h2 style={styles.heading}>Doctor's Appointments</h2>
             {appointments.map((appointment) => (
                 <div key={appointment._id} style={styles.card}>

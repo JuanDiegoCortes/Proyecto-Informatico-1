@@ -1,6 +1,7 @@
 // src/pages/AdminDashboard.jsx
 import React, { useEffect, useState } from 'react';
 import { useAdmin } from '../context/AdminContext';
+import HomeButton from '../components/HomeButton';
 
 const AdminDashboard = () => {
   const { users, loadUsers, modifyUser, removeUser, assignDoctor, appointments, loadUserAppointments, loadDoctors, doctors, error } = useAdmin();
@@ -75,6 +76,7 @@ const AdminDashboard = () => {
 
   return (
     <div style={styles.container}>
+      <HomeButton />
       <h1>Admin Dashboard</h1>
       {error && <p style={styles.errorText}>{error}</p>}
       <ul style={styles.userList}>

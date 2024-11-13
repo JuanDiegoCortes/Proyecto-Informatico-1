@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppointment } from '../context/AppointmentContext';
+import HomeButton from '../components/HomeButton';
 import './ConsultPage.css';
 
 const ConsultPage = () => {
@@ -75,7 +76,9 @@ const ConsultPage = () => {
     const today = new Date().toISOString().split('T')[0];
 
     return (
+        
         <div className="consult-container">
+            <HomeButton />
             <div className="header">
                 <h1>Consultas del Usuario</h1>
             </div>
