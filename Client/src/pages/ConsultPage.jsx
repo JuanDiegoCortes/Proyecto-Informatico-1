@@ -112,7 +112,8 @@ const ConsultPage = () => {
                             }</p>
 
                             {/* Botón para alternar la visibilidad del diagnóstico */}
-                            <button 
+                            <button
+                                className="diagnostic-button"
                                 onClick={() => handleShowDiagnostic(appointment._id)} 
                             >
                                 {expandedAppointmentId === appointment._id ? 'Ocultar Diagnóstico' : 'Ver Diagnóstico'}

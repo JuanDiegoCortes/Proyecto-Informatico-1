@@ -40,6 +40,15 @@ function RegisterPage() {
             </div>
             <div style={styles.inputGroup}>
             <input 
+                type="text" 
+                {...register('username', { required: true })} 
+                placeholder="username" 
+                style={styles.input}
+            />
+            {errors.lastname && <span style={styles.error}>Username is required</span>}
+            </div>
+            <div style={styles.inputGroup}>
+            <input 
                 type="date" 
                 {...register('birthdate', { required: true })} 
                 placeholder="Birthdate" 
